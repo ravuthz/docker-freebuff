@@ -1,0 +1,37 @@
+services:
+  freebuff:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: freebuff-sandbox
+    stdin_open: true
+    read_only: false
+    tty: true
+    shm_size: "1g"
+    tmpfs:
+      - /tmp:size=2g,exec
+      # - /home/freebuff/.npm:size=512m
+      # - /home/freebuff/.cache:size=512m
+      # - /home/freebuff/.config:size=512m
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    pids_limit: 512
+    mem_limit: 4g
+    cpus: 4
+    volumes:
+      - freebuff_config:/home/freebuff/.config
+      - freebuff_cache:/home/freebuff/.cache
+      - freebuff_npm:/home/freebuff/.npm
+    networks:
+      - sandbox
+
+networks:
+  sandbox:
+    driver: bridge
+
+volumes:
+  freebuff_config:
+  freebuff_cache:
+  freebuff_npm:
