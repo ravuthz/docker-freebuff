@@ -10,9 +10,6 @@ services:
     shm_size: "1g"
     tmpfs:
       - /tmp:size=2g,exec
-      # - /home/freebuff/.npm:size=512m
-      # - /home/freebuff/.cache:size=512m
-      # - /home/freebuff/.config:size=512m
     security_opt:
       - no-new-privileges:true
     cap_drop:
